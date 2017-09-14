@@ -1,0 +1,33 @@
+dropdown.png
+size: 206, 365
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dropdown-box
+  rotate: false
+  xy: 0, 0
+  size: 161, 46
+  orig: 161, 46
+  offset: 0, 0
+  index: -1
+dropdown-button
+  rotate: false
+  xy: 161, 0
+  size: 45, 46
+  orig: 45, 46
+  offset: 0, 0
+  index: -1
+dropdown-indicator
+  rotate: false
+  xy: 0, 46
+  size: 45, 46
+  orig: 45, 46
+  offset: 0, 0
+  index: -1
+dropdown-list
+  rotate: false
+  xy: 45, 46
+  size: 161, 319
+  orig: 161, 319
+  offset: 0, 0
+  index: -1

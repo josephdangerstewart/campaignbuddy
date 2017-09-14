@@ -1,0 +1,19 @@
+checkbox.png
+size: 88, 49
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+checkbox-selected
+  rotate: false
+  xy: 0, 0
+  size: 44, 49
+  orig: 44, 49
+  offset: 0, 0
+  index: -1
+checkbox-unselected
+  rotate: false
+  xy: 44, 0
+  size: 44, 49
+  orig: 44, 49
+  offset: 0, 0
+  index: -1

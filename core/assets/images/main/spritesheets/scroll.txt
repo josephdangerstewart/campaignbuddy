@@ -1,0 +1,19 @@
+scroll.png
+size: 16, 414
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+scroll-box
+  rotate: false
+  xy: 0, 0
+  size: 12, 48
+  orig: 12, 48
+  offset: 0, 0
+  index: -1
+scroll-track
+  rotate: false
+  xy: 12, 0
+  size: 4, 414
+  orig: 4, 414
+  offset: 0, 0
+  index: -1
