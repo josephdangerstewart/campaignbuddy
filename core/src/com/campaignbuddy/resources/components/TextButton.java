@@ -102,6 +102,10 @@ public class TextButton extends InteractiveDrawable {
         button.setX(x);
     }
 
+    public void click() {
+        onCall.onCall();
+    }
+
     public void setHeightBuffer(int heightBuffer) {
         button.getSprite().setSize(button.getWidth(),button.getHeight()-(HEIGHT_BUFFER-heightBuffer));
         this.HEIGHT_BUFFER = heightBuffer;

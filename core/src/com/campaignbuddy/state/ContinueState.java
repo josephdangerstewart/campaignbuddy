@@ -87,6 +87,13 @@ public class ContinueState extends State {
         list.add(select);
         list.add(remove);
 
+        itemList.setOnEnter(new Event() {
+            @Override
+            public void onCall() {
+                select.click();
+            }
+        });
+
         list.setPosition(CampaignBuddyMain.WIDTH/2-list.getWidth()/2,0);
 
         this.list.add(back);

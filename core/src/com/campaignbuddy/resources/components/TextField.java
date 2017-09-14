@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.campaignbuddy.resources.meta.Event;
 import com.campaignbuddy.resources.meta.InteractiveDrawable;
 import com.campaignbuddy.resources.meta.TextChangeEvent;
 import com.campaignbuddy.state.meta.State;
@@ -35,6 +36,9 @@ public class TextField extends InteractiveDrawable {
     private OrthographicCamera camera;
     private Viewport viewport;
     private TextChangeEvent event;
+    private Event onEnter;
+    private TextField beforeTab;
+    private TextField afterTab;
 
     private int x;
     private int y;
@@ -152,6 +156,13 @@ public class TextField extends InteractiveDrawable {
         return false;
     }
 
+    public void click() {
+        edit = true;
+        if (clearOnEdit) {
+            text = "";
+        }
+    }
+
     @Override
     public boolean keyTyped(char character) {
         if (edit) {
@@ -189,15 +200,33 @@ public class TextField extends InteractiveDrawable {
         return false;
     }
 
+    public void setTabs(TextField beforeTab, TextField afterTab) {
+        this.beforeTab = beforeTab;
+        this.afterTab = afterTab;
+    }
+
     @Override
     public boolean keyDown(int keycode) {
         if (edit) {
             if (keycode == Input.Keys.LEFT && cursorOffset < text.length()) {
-                cursorOffset ++;
+                cursorOffset++;
             } else if (keycode == Input.Keys.RIGHT && cursorOffset > 0) {
-                cursorOffset --;
+                cursorOffset--;
             } else if (keycode == Input.Keys.ENTER) {
                 change(text);
+                if (onEnter != null) {
+                    onEnter.onCall();
+                }
+            } else if (keycode == Input.Keys.TAB && (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT))) {
+                change(text);
+                if (beforeTab != null) {
+                    beforeTab.click();
+                }
+            } else if (keycode == Input.Keys.TAB) {
+                change(text);
+                if (afterTab != null) {
+                    afterTab.click();
+                }
             }
             return true;
         }
@@ -237,6 +266,10 @@ public class TextField extends InteractiveDrawable {
     @Override
     public int getY() {
         return y;
+    }
+
+    public void setOnEnter(Event onEnter) {
+        this.onEnter = onEnter;
     }
 
     @Override

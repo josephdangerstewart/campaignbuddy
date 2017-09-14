@@ -55,6 +55,11 @@ public class PlayerAdder extends InteractiveContainer {
         typeField = new TextField(0,0,"images/textbox.png","fonts/header-big.fnt",200,camera,State.viewport);
         raceField = new TextField(0,0,"images/textbox.png","fonts/header-big.fnt",200,camera,State.viewport);
 
+        playerNameField.setTabs(raceField,characterNameField);
+        characterNameField.setTabs(playerNameField,typeField);
+        typeField.setTabs(characterNameField,raceField);
+        raceField.setTabs(typeField,playerNameField);
+
         int y = window.getHeight()-80;
         window.add(playerName,window.getWidth()/2-(playerName.getWidth()+playerNameField.getWidth())/2,y+(playerNameField.getHeight()/2-playerName.getHeight()/2)+playerName.getHeight());
         window.add(playerNameField,window.getWidth()/2-(playerName.getWidth()+playerNameField.getWidth())/2+playerName.getWidth(),y);
@@ -79,6 +84,13 @@ public class PlayerAdder extends InteractiveContainer {
             }
         });
         window.add(add,window.getWidth()/2-add.getWidth()/2,20);
+
+        raceField.setOnEnter(new Event() {
+            @Override
+            public void onCall() {
+                add.click();
+            }
+        });
 
         back = new TextButton(0, 0, "Back", "images/main/button.png", "fonts/text-big.fnt", new Event() {
             @Override

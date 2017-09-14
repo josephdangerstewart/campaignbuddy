@@ -46,6 +46,12 @@ public class NewState extends State {
 
         name = new TextField(0,0,"images/textbox.png","fonts/header-small.fnt",400,camera,viewport);
         name.setPosition(0-name.getWidth()/2,0);
+        name.setOnEnter(new Event() {
+            @Override
+            public void onCall() {
+                create.click();
+            }
+        });
         create.setPosition(0-create.getWidth()/2,0-name.getHeight()-create.getHeight()-10);
 
         InteractableList tempList = new InteractableList(0,0);

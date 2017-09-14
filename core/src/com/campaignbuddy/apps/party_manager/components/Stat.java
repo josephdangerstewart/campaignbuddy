@@ -35,6 +35,14 @@ public class Stat extends InteractiveContainer {
     private String prefName;
     private JSONObject player;
 
+    public NumberTextField getTextField() {
+        return amount;
+    }
+
+    public void setTabs(Stat beforeTab, Stat afterTab) {
+        amount.setTabs(beforeTab.getTextField(),afterTab.getTextField());
+    }
+
     @Override
     public void setVisible(boolean visible) {
         amount.setVisible(visible);

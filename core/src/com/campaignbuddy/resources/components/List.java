@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.campaignbuddy.resources.containers.InteractableList;
 import com.campaignbuddy.resources.containers.ScrollableWindow;
 import com.campaignbuddy.resources.meta.ChangeEvent;
+import com.campaignbuddy.resources.meta.Event;
 import com.campaignbuddy.resources.meta.InteractiveDrawable;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class List extends InteractiveDrawable {
     private BitmapFont font;
     private String fontString;
     private GlyphLayout layout;
+    private Event onEnter;
 
     private int selectedIndex = -1;
     private int height;
@@ -257,10 +259,16 @@ public class List extends InteractiveDrawable {
                         onChange.onChange(selectedIndex);
                     }
                 }
+            } else if (keycode == Input.Keys.ENTER && selectedIndex >= 0) {
+                onEnter.onCall();
             }
             return true;
         }
         return false;
+    }
+
+    public void setOnEnter(Event onEnter) {
+        this.onEnter = onEnter;
     }
 
     @Override

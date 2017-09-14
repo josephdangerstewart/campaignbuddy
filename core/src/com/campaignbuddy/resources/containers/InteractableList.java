@@ -1,7 +1,10 @@
 package com.campaignbuddy.resources.containers;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.campaignbuddy.resources.components.NumberTextField;
+import com.campaignbuddy.resources.components.TextField;
 import com.campaignbuddy.resources.meta.InteractiveContainer;
 import com.campaignbuddy.resources.meta.InteractiveDrawable;
 
@@ -86,6 +89,21 @@ public class InteractableList extends InteractiveContainer {
 		for (int i = list.size()-1; i >= 0; i--) {
 			if(list.get(i).getVisible() && list.get(i).keyDown(keyCode)) return true;
 		}
+
+		if (keyCode == Input.Keys.TAB) {
+			for (int i = 0; i < list.size(); i ++) {
+				System.out.println(list.get(i).getClass().getCanonicalName());
+				if (list.get(i).getClass().getCanonicalName().equals("com.campaignbuddy.resources.components.TextField")) {
+					((TextField)list.get(i)).click();
+					System.out.println("TextField!!!");
+					return true;
+				} else if (list.get(i).getClass().getCanonicalName().equals("com.campaignbuddy.resources.components.NumberTextField")) {
+					((NumberTextField)list.get(i)).click();
+					return true;
+				}
+			}
+		}
+
 		return false;
 	}
 

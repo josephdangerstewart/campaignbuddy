@@ -19,8 +19,6 @@ public class MenuState extends State {
         logo.setPosition(CampaignBuddyMain.WIDTH/2+CampaignBuddyMain.WIDTH/4-logo.getWidth()/2,CampaignBuddyMain.HEIGHT/2-logo.getHeight()/2);
         list.add(logo);
 
-
-
         TextButton continueCampaign = new TextButton(0,0,"Select Campaign","images/main/button.png","fonts/header-big.fnt",new Event() {
             @Override
             public void onCall() {
