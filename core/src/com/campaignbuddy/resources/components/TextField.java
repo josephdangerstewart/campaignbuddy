@@ -21,6 +21,8 @@ import com.campaignbuddy.state.meta.State;
  */
 public class TextField extends InteractiveDrawable {
 
+    //Comment this is a comment
+
     private final int Y_BUFFER = 10;
     private final int X_BUFFER = 0;
     private final String cursor = "|";
