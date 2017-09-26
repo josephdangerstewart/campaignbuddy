@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.campaignbuddy.main.CampaignBuddyMain;
 import com.campaignbuddy.resources.meta.InteractiveContainer;
 import com.campaignbuddy.resources.meta.InteractiveDrawable;
 
@@ -169,28 +170,29 @@ public class Window extends InteractiveContainer {
     @Override
     public void draw(SpriteBatch batch) {
 
-        if (!transparent)
-            background.draw(batch);
+        if ((x< CampaignBuddyMain.WIDTH && x+width > 0) && (y<CampaignBuddyMain.HEIGHT && y+yBuffer+(height-2*yBuffer) > 0)) {
+            if (!transparent)
+                background.draw(batch);
 
-        alwaysShowingList.draw(batch);
+            alwaysShowingList.draw(batch);
 
-        Rectangle scissors = new Rectangle();
-        Rectangle bounds = new Rectangle(x, y + yBuffer, width, height - 2 * yBuffer);
-        ScissorStack.calculateScissors(camera,viewport.getScreenX(),viewport.getScreenY(),viewport.getScreenWidth(),viewport.getScreenHeight(), batch.getTransformMatrix(), bounds, scissors);
-        batch.flush();
-        ScissorStack.pushScissors(scissors);
-
-
-        //DRAWING STARTS HERE
-
-        list.draw(batch);
-
-        //DRAWING ENDS HERE
+            Rectangle scissors = new Rectangle();
+            Rectangle bounds = new Rectangle(x, y + yBuffer, width, height - 2 * yBuffer);
+            ScissorStack.calculateScissors(camera, viewport.getScreenX(), viewport.getScreenY(), viewport.getScreenWidth(), viewport.getScreenHeight(), batch.getTransformMatrix(), bounds, scissors);
+            batch.flush();
+            ScissorStack.pushScissors(scissors);
 
 
-        batch.flush();
-        ScissorStack.popScissors();
+            //DRAWING STARTS HERE
 
+            list.draw(batch);
+
+            //DRAWING ENDS HERE
+
+
+            batch.flush();
+            ScissorStack.popScissors();
+        }
     }
 
     public void setWidth(float width) {

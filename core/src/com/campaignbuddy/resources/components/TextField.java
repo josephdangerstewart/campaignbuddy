@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.campaignbuddy.main.CampaignBuddyMain;
 import com.campaignbuddy.resources.meta.Event;
 import com.campaignbuddy.resources.meta.InteractiveDrawable;
 import com.campaignbuddy.resources.meta.TextChangeEvent;
@@ -81,44 +82,45 @@ public class TextField extends InteractiveDrawable {
     public void draw(SpriteBatch batch) {
         background.draw(batch);
 
-        Rectangle scissors = new Rectangle();
-        Rectangle bounds = new Rectangle(x+X_BUFFER,y,width-(X_BUFFER*2),height);
-        ScissorStack.calculateScissors(camera, viewport.getScreenX(),viewport.getScreenY(),viewport.getScreenWidth(),viewport.getScreenHeight(), batch.getTransformMatrix(), bounds, scissors);
-        batch.flush();
-        ScissorStack.pushScissors(scissors);
+        if ((x+X_BUFFER< CampaignBuddyMain.WIDTH && x+X_BUFFER+width > 0) && (y<CampaignBuddyMain.HEIGHT && y+height > 0)) {
+            Rectangle scissors = new Rectangle();
+            Rectangle bounds = new Rectangle(x + X_BUFFER, y, width - (X_BUFFER * 2), height);
+            ScissorStack.calculateScissors(camera, viewport.getScreenX(), viewport.getScreenY(), viewport.getScreenWidth(), viewport.getScreenHeight(), batch.getTransformMatrix(), bounds, scissors);
+            batch.flush();
+            ScissorStack.pushScissors(scissors);
 
 
-        //DRAWING STARTS HERE
+            //DRAWING STARTS HERE
 
-        layout.setText(font,text + cursor);
-        String tempText;
+            layout.setText(font, text + cursor);
+            String tempText;
 
-        if (edit) {
-            if (cursorOffset > 0) {
-                String text1;
-                String text2;
+            if (edit) {
+                if (cursorOffset > 0) {
+                    String text1;
+                    String text2;
 
-                text1 = text.substring(0, text.length() - cursorOffset);
-                text2 = text.substring(text.length() - cursorOffset, text.length());
-                tempText = text1 + cursor + text2;
+                    text1 = text.substring(0, text.length() - cursorOffset);
+                    text2 = text.substring(text.length() - cursorOffset, text.length());
+                    tempText = text1 + cursor + text2;
+                } else {
+                    tempText = text + cursor;
+                }
             } else {
-                tempText = text + cursor;
+                tempText = text;
             }
-        } else {
-            tempText = text;
+
+            int width = (int) layout.width + X_BUFFER;
+            if (width < this.width)
+                font.draw(batch, tempText, x + X_BUFFER, y + layout.height / 2 + height / 2);
+            else
+                font.draw(batch, tempText, x + X_BUFFER - (width - this.width), y + layout.height / 2 + height / 2);
+
+            //DRAWING ENDS HERE
+
+            batch.flush();
+            ScissorStack.popScissors();
         }
-
-        int width = (int)layout.width + X_BUFFER;
-        if (width < this.width)
-            font.draw(batch,tempText,x+X_BUFFER,y+layout.height/2+height/2);
-        else
-            font.draw(batch,tempText,x+X_BUFFER-(width-this.width),y+layout.height/2+height/2);
-
-        //DRAWING ENDS HERE
-
-        batch.flush();
-        ScissorStack.popScissors();
-
     }
 
     public void setClearOnEdit(boolean clearOnEdit) {

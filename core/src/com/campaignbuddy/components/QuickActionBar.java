@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.campaignbuddy.main.CampaignBuddyMain;
 import com.campaignbuddy.resources.components.Button;
 import com.campaignbuddy.resources.containers.InteractableList;
+import com.campaignbuddy.resources.containers.ScrollableWindow;
 import com.campaignbuddy.resources.containers.Window;
 import com.campaignbuddy.resources.meta.Event;
 import com.campaignbuddy.resources.meta.InteractiveContainer;
@@ -28,7 +29,7 @@ public class QuickActionBar extends InteractiveContainer {
 
     private int lastWidth;
 
-    private Window bar;
+    private ScrollableWindow bar;
     private Sidebar sidebar;
     private Button unhide;
     private Button hide;
@@ -39,7 +40,8 @@ public class QuickActionBar extends InteractiveContainer {
 
     public QuickActionBar(OrthographicCamera camera, Viewport viewport, Sidebar sidebar, AppPool pool) {
         this.pool = pool;
-        bar = new Window("images/main/qa-bar.png",0,0,camera,viewport);
+        bar = new ScrollableWindow("images/main/qa-bar.png",0,0,camera,0,0,viewport);
+        bar.setScrollOnY(false);
         this.sidebar = sidebar;
 
         lastWidth = (sidebar.getWidth()+sidebar.getX());
@@ -90,6 +92,14 @@ public class QuickActionBar extends InteractiveContainer {
         for (int i = 0; i < components.size(); i ++) {
             bar.add(components.get(i),x,bar.getHeight()/2-components.get(i).getHeight()/2);
             x += components.get(i).getWidth() + X_BUFFER;
+        }
+
+        int width = bar.getList().getWidth()+INIT_X_BUFFER;
+        System.out.println(width);
+        if (width - bar.getWidth() > 0) {
+            bar.setMax(width-bar.getWidth()+INIT_X_BUFFER);
+        } else {
+            bar.setMax(0);
         }
     }
 

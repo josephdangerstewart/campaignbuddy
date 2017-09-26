@@ -1,6 +1,7 @@
 package com.campaignbuddy.state.meta;
 
 import com.campaignbuddy.main.CampaignBuddyMain;
+import com.campaignbuddy.resources.components.Text;
 import com.campaignbuddy.resources.meta.Event;
 import com.campaignbuddy.resources.meta.InteractiveDrawable;
 import com.campaignbuddy.resources.components.TextButton;
@@ -22,12 +23,14 @@ public abstract class App extends State {
         super(backgroundName);
         this.name = name;
         this.logo = logo;
-        list.add(new TextButton(10, CampaignBuddyMain.HEIGHT - 70, "Back", "images/main/button.png", "fonts/header-small.fnt", new Event() {
+        TextButton back = new TextButton(10, CampaignBuddyMain.HEIGHT - 70, "Back", "images/main/button.png", "fonts/header-small.fnt", new Event() {
             @Override
             public void onCall() {
-               State.gsm.setState(CampaignBuddyMain.MAIN_STATE);
+                State.gsm.setState(CampaignBuddyMain.MAIN_STATE);
             }
-        }));
+        });
+        list.add(back);
+
 
         prefs = State.gsm.getPrefs().getAppPrefs(name);
     }

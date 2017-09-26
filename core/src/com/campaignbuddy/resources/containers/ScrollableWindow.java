@@ -120,7 +120,7 @@ public class ScrollableWindow extends Window {
                     }
                     return true;
                 } else if (!scrollOnY && (scrollAmount + amount * scrollFactor) >= min && (scrollAmount + amount * scrollFactor) <= max) {
-                    move(amount * scrollFactor, 0);
+                    move(amount * scrollFactor * (-1), 0);
                     scrollAmount += amount * scrollFactor;
                     System.out.println(scrollAmount);
                     if (scrollBar != null) {
@@ -134,10 +134,12 @@ public class ScrollableWindow extends Window {
     }
 
     public void setMax(int max) {
-        if (max == 0) {
-            scrollBar.setVisible(false);
-        } else {
-            scrollBar.setVisible(true);
+        if (scrollBar != null) {
+            if (max == 0) {
+                scrollBar.setVisible(false);
+            } else {
+                scrollBar.setVisible(true);
+            }
         }
         this.max = max;
     }
